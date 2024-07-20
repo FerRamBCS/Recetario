@@ -50,6 +50,15 @@ android {
 }
 
 dependencies {
+    /*
+    * ADICION DE IMPLMENTACIONES PARA MANIPULACION DE API'S
+    */
+    
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation("io.coil-kt:coil-compose:2.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
