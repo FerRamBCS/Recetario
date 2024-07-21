@@ -1,56 +1,35 @@
 package com.example.recetario
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.recetario.ui.theme.RecetarioTheme
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: RecetarioViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            RecetarioTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+            // Aquí iría tu contenido de UI, si es necesario
+        }
+
+        //PRUEBA EN LOGCAT
+
+        // Observa los cambios en el StateFlow
+        lifecycleScope.launch {
+            viewModel.mealDetails.collect { meal ->
+                // Imprime los detalles del plato en la consola
+                if (meal != null) {
+                    Log.d("MainActivity", "Meal Details: ${meal.strMeal}, ${meal.strCategory}, ${meal.strArea}, ${meal.strInstruction}")
+                } else {
+                    Log.d("MainActivity", "Meal details not found")
                 }
             }
         }
     }
 }
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun Chilaquiles () {
-    RecetarioTheme {
-        Greeting("Android")
-    }
-}
-
-// TESTEANDO REPOSITORIO GITHUB
-/*
-*
-*
-* Fuk u david
-*
-*
-* */
