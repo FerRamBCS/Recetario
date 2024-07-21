@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
             // Aquí iría tu contenido de UI, si es necesario
         }
 
+
         //PRUEBA EN LOGCAT
 
         // Observa los cambios en el StateFlow
