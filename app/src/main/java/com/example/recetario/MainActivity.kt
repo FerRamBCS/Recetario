@@ -32,5 +32,19 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        // Observa los cambios en el StateFlow para la lista de áreas
+        lifecycleScope.launch {
+            viewModel.areaList.collect { areas ->
+                // Imprime la lista de áreas en la consola
+                if (areas != null) {
+                    Log.d("MainActivity", "Area List: ${areas.joinToString { it.name }}")
+                } else {
+                    Log.d("MainActivity", "Area list not found")
+                }
+            }
+        }
     }
 }
+
+
+
