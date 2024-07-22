@@ -13,7 +13,6 @@ interface ApiService {
     @GET("lookup.php")
     suspend fun getMealDetails(@Query("i") mealId: String): idMealResponse
     //EndPoint para filtrar por area
-
     @GET("list.php")
     suspend fun getAreaList(@Query("a") area: String = "list"): areaListResponse
     //EndPoint para filtrar por categorias
@@ -26,8 +25,9 @@ interface ApiService {
     suspend fun getMealIgredients(): ingredientResponse
     //EndPoint para fltrar por nombre
 
+    //EndPoint para buscar directamente por nombre el platillo
     @GET("search.php")
     suspend fun searchMealByName(@Query("s") mealName: String): idMealResponse
-    //EndPoint para buscar directamente por nombre el platillo
+
 
 }
