@@ -4,6 +4,7 @@ import com.example.recetario.recetarioData.areaListResponse
 import com.example.recetario.recetarioData.categoryResponse
 import com.example.recetario.recetarioData.idMealResponse
 import com.example.recetario.recetarioData.ingredientResponse
+import com.example.recetario.recetarioData.searchMealByNameResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -27,7 +28,7 @@ interface ApiService {
 
     //EndPoint para buscar directamente por nombre el platillo
     @GET("search.php")
-    suspend fun searchMealByName(@Query("s") mealName: String): idMealResponse
+    suspend fun searchMealByName(@Query("s") mealName: String): searchMealByNameResponse
 
 
 }
