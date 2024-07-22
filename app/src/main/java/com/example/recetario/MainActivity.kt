@@ -26,7 +26,10 @@ class MainActivity : ComponentActivity() {
             viewModel.mealDetails.collect { meal ->
                 // Imprime los detalles del plato en la consola
                 if (meal != null) {
-                    Log.d("MainActivity", "Meal Details: ${meal.strMeal}, ${meal.strCategory}, ${meal.strArea}, ${meal.strInstruction}")
+                    Log.d(
+                        "MainActivity",
+                        "Meal Details: ${meal.strMeal}, ${meal.strCategory}, ${meal.strArea}, ${meal.strInstruction}"
+                    )
                 } else {
                     Log.d("MainActivity", "Meal details not found")
                 }
@@ -43,8 +46,25 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        // Observa los cambios en el StateFlow para categorías
+        lifecycleScope.launch {
+            viewModel.categories.collect { categories ->
+                if (categories != null) {
+                    categories.forEach { category ->
+                        Log.d(
+                            "MainActivity",
+                            "Category: ${category.strCategory}, ${category.strCategoryThumb}, ${category.strCategoryDescription}"
+                        )
+                    }
+                } else {
+                    Log.d("MainActivity", "Categories not found")
+                }
+
+            }
+
+        }
+
     }
 }
-
 
 

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recetario.recetarioData.Area
+import com.example.recetario.recetarioData.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.example.recetario.recetarioRepository.idMealRepository
 import com.example.recetario.recetarioData.idMeal
 import com.example.recetario.recetarioRepository.AreaMealRepository
+import com.example.recetario.recetarioRepository.categoryRepository
 
 class RecetarioViewModel(application: Application): AndroidViewModel(application) {
     private val logging = HttpLoggingInterceptor().apply {
@@ -34,6 +36,7 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
     // Repositorios
     private val idRepository = idMealRepository(apiService)
     private val areaRepository = AreaMealRepository(apiService)
+    private val categoryRepository = categoryRepository(apiService)
 
     // StateFlows para MealDetails
     private val _mealDetails = MutableStateFlow<idMeal?>(null)
@@ -42,11 +45,14 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
     // StateFLows para AreaList
     private val _areaList = MutableStateFlow<List<Area>?>(null)
     val areaList: StateFlow<List<Area>?> = _areaList
-
+    //StateFlows para Categorias
+    private val _categories = MutableStateFlow<List<Category>?>(null)
+    val categories: StateFlow<List<Category>?> =_categories
 
     init {
         getMealDetails()
         getAreaList()
+        getCategories()
     }
 
     private fun getMealDetails() = viewModelScope.launch {
@@ -55,6 +61,10 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
 
     private fun  getAreaList () = viewModelScope.launch {
         _areaList.value = areaRepository.getAreaList()
+    }
+
+    private fun getCategories() = viewModelScope.launch {
+        _categories.value = categoryRepository.getMealCategories()
     }
 
 }
