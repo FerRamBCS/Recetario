@@ -3,6 +3,7 @@ package com.example.recetario
 import com.example.recetario.recetarioData.areaListResponse
 import com.example.recetario.recetarioData.categoryResponse
 import com.example.recetario.recetarioData.idMealResponse
+import com.example.recetario.recetarioData.ingredientResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -20,7 +21,8 @@ interface ApiService {
     @GET("categories.php")
     suspend fun getMealCategories(): categoryResponse
     //EndPoint para filtrar por ingrdientes
-
+    @GET("list.php?i=list")
+    suspend fun getMealIgredients(): ingredientResponse
     //EndPoint para fltrar por nombre
 
 

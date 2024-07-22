@@ -63,6 +63,19 @@ class MainActivity : ComponentActivity() {
             }
 
         }
+        //Observa los cambios en el StateFlow para ingredientes
+        lifecycleScope.launch { 
+            viewModel.ingredients.collect { ingredients ->
+                if (ingredients != null){
+                    ingredients.forEach { ingredient ->
+                        Log.d("MainActivity", "Ingredient: ${ingredient.strIngredient}, ${ingredient.strDescription}, ${ingredient.strType}")
+                    }
+                }else{
+                    Log.d("Main activity", "Ingredients not found")
+                }
+                
+            }
+        }
 
     }
 }

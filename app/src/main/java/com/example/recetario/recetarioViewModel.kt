@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recetario.recetarioData.Area
 import com.example.recetario.recetarioData.Category
+import com.example.recetario.recetarioData.Ingredients
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import com.example.recetario.recetarioRepository.idMealRepository
 import com.example.recetario.recetarioData.idMeal
 import com.example.recetario.recetarioRepository.AreaMealRepository
 import com.example.recetario.recetarioRepository.categoryRepository
+import com.example.recetario.recetarioRepository.ingredientRepository
 
 class RecetarioViewModel(application: Application): AndroidViewModel(application) {
     private val logging = HttpLoggingInterceptor().apply {
@@ -37,6 +39,7 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
     private val idRepository = idMealRepository(apiService)
     private val areaRepository = AreaMealRepository(apiService)
     private val categoryRepository = categoryRepository(apiService)
+    private val ingredientRepository = ingredientRepository(apiService)
 
     // StateFlows para MealDetails
     private val _mealDetails = MutableStateFlow<idMeal?>(null)
@@ -45,14 +48,20 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
     // StateFLows para AreaList
     private val _areaList = MutableStateFlow<List<Area>?>(null)
     val areaList: StateFlow<List<Area>?> = _areaList
+
     //StateFlows para Categorias
     private val _categories = MutableStateFlow<List<Category>?>(null)
     val categories: StateFlow<List<Category>?> =_categories
+
+    // StateFlows para ingredientes
+    private val _ingredients = MutableStateFlow<List<Ingredients>?>(null)
+    val ingredients: StateFlow<List<Ingredients>?> = _ingredients
 
     init {
         getMealDetails()
         getAreaList()
         getCategories()
+        getIngredients()
     }
 
     private fun getMealDetails() = viewModelScope.launch {
@@ -65,6 +74,10 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
 
     private fun getCategories() = viewModelScope.launch {
         _categories.value = categoryRepository.getMealCategories()
+    }
+
+    private fun getIngredients() = viewModelScope.launch {
+        _ingredients.value = ingredientRepository.getIngredients()
     }
 
 }
