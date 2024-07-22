@@ -18,6 +18,7 @@ import com.example.recetario.recetarioData.idMeal
 import com.example.recetario.recetarioRepository.AreaMealRepository
 import com.example.recetario.recetarioRepository.categoryRepository
 import com.example.recetario.recetarioRepository.ingredientRepository
+import com.example.recetario.recetarioRepository.searchMealByNameRepository
 
 class RecetarioViewModel(application: Application): AndroidViewModel(application) {
     private val logging = HttpLoggingInterceptor().apply {
@@ -40,6 +41,8 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
     private val areaRepository = AreaMealRepository(apiService)
     private val categoryRepository = categoryRepository(apiService)
     private val ingredientRepository = ingredientRepository(apiService)
+    private val searchRepository = searchMealByNameRepository(apiService)
+
 
     // StateFlows para MealDetails
     private val _mealDetails = MutableStateFlow<idMeal?>(null)
@@ -58,14 +61,18 @@ class RecetarioViewModel(application: Application): AndroidViewModel(application
     val ingredients: StateFlow<List<Ingredients>?> = _ingredients
 
     init {
-        getMealDetails()
+        getMealDetailsById("")
         getAreaList()
         getCategories()
         getIngredients()
     }
 
-    private fun getMealDetails() = viewModelScope.launch {
-        _mealDetails.value = idRepository.getMealDetails("53085")  // ID específico
+    private fun getMealDetailsById (mealId: String) = viewModelScope.launch {
+        _mealDetails.value = idRepository.getMealDetails(mealId)
+    }
+
+    fun getMealDeatailsByName (mealName: String) = viewModelScope.launch {
+        _mealDetails.value = searchRepository.searchMealByName(mealName)
     }
 
     private fun  getAreaList () = viewModelScope.launch {

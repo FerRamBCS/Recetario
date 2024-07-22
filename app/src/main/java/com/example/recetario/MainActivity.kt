@@ -77,6 +77,8 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        // PROBANDO POR NOMBRE
+        viewModel.getMealDeatailsByName("Creamy Tomato Soup")
     }
 }
 
