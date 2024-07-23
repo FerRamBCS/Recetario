@@ -15,71 +15,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            inicioScreen ()
-        }
-
-
-        //PRUEBA EN LOGCAT
-
-        // Observa los cambios en el StateFlow
-        lifecycleScope.launch {
-            viewModel.mealDetails.collect { meal ->
-                // Imprime los detalles del plato en la consola
-                if (meal != null) {
-                    Log.d(
-                        "MainActivity",
-                        "Meal Details: ${meal.strMeal}, ${meal.strCategory}, ${meal.strArea}, ${meal.strInstruction}"
-                    )
-                } else {
-                    Log.d("MainActivity", "Meal details not found")
-                }
-            }
-        }
-        // Observa los cambios en el StateFlow para la lista de áreas
-        lifecycleScope.launch {
-            viewModel.areaList.collect { areas ->
-                // Imprime la lista de áreas en la consola
-                if (areas != null) {
-                    Log.d("MainActivity", "Area List: ${areas.joinToString { it.name }}")
-                } else {
-                    Log.d("MainActivity", "Area list not found")
-                }
-            }
-        }
-        // Observa los cambios en el StateFlow para categorías
-        lifecycleScope.launch {
-            viewModel.categories.collect { categories ->
-                if (categories != null) {
-                    categories.forEach { category ->
-                        Log.d(
-                            "MainActivity",
-                            "Category: ${category.strCategory}, ${category.strCategoryThumb}, ${category.strCategoryDescription}"
-                        )
-                    }
-                } else {
-                    Log.d("MainActivity", "Categories not found")
-                }
-
-            }
 
         }
-        //Observa los cambios en el StateFlow para ingredientes
-        lifecycleScope.launch { 
-            viewModel.ingredients.collect { ingredients ->
-                if (ingredients != null){
-                    ingredients.forEach { ingredient ->
-                        Log.d("MainActivity", "Ingredient: ${ingredient.strIngredient}, ${ingredient.strDescription}, ${ingredient.strType}")
-                    }
-                }else{
-                    Log.d("Main activity", "Ingredients not found")
-                }
-                
-            }
-        }
-
-        // PROBANDO POR NOMBRE
-        viewModel.getMealDeatailsByName("Creamy Tomato Soup")
     }
 }
-
 
