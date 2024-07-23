@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Aquí puedes colocar tu Composable principal si estás usando Jetpack Compose
+            MenuScreen(recetarioViewModel = viewModel)
         }
 
         observeViewModel()
