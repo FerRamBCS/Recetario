@@ -1,13 +1,14 @@
 package com.example.recetario
 
+//IMPORTS COMENTADOS PARA PRUEBAS
 import android.os.Bundle
-import android.util.Log
+//import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+//import androidx.lifecycle.lifecycleScope
+//import kotlinx.coroutines.flow.collect
+//import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val viewModel: RecetarioViewModel by viewModels()
@@ -17,10 +18,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             MenuScreen(recetarioViewModel = viewModel)
         }
-
-        observeViewModel()
+        //PARTE DE LA ZONA DE PRUEBAS EN LOGCAT
+        //observeViewModel()
     }
 
+/*
+    ZONA DE PRUEBAS PARA LOGCAT *NO TOCAR*
     private fun observeViewModel() {
         // Observar y mostrar categorías en el Logcat
         lifecycleScope.launch {
@@ -85,4 +88,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+ */
 }

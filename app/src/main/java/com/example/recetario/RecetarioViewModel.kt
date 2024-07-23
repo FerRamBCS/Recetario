@@ -93,4 +93,13 @@ class RecetarioViewModel(application: Application) : AndroidViewModel(applicatio
         val meals = mealsRepository.getMealByName(name) ?: emptyList()
         _mealsList.value = meals
     }
+
+    fun getMealsByIds(ids: List<String>) = viewModelScope.launch {
+        val meals = mutableListOf<Meal>()
+        ids.forEach { id ->
+            val mealDetails = mealDetailRepository.getMealById(id) ?: emptyList()
+            meals.addAll(mealDetails.map { Meal(it.idMeal, it.strMeal, it.strMealThumb) })
+        }
+        _mealsList.value = meals
+    }
 }

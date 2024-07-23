@@ -15,11 +15,17 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.recetario.data.Meal
-import com.example.recetario.data.MealDetail
 
 @Composable
 fun MenuScreen(recetarioViewModel: RecetarioViewModel = viewModel()) {
+    // Lista de IDs a obtener
+    val mealIds = listOf("53085", "52870", "52819", "52765", "52774", "52998", "52823", "52869", "53082")
+
+    // Para fines de prueba, obtenemos datos de múltiples IDs
+    recetarioViewModel.getMealsByIds(mealIds)
+
     val mealList by recetarioViewModel.mealsList.collectAsState()
+
     Column(modifier = Modifier.padding(15.dp)) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
