@@ -1,7 +1,6 @@
 package com.example.recetario
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recetario.data.Category
@@ -66,62 +65,32 @@ class RecetarioViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     private fun getCategories() = viewModelScope.launch {
-        try {
-            val categories = categoriesRepository.getCategories() ?: emptyList()
-            _categoriesList.value = categories
-            Log.d("RecetarioViewModel", "Categories: ${categories.size}")
-        } catch (e: Exception) {
-            Log.e("RecetarioViewModel", "Error getting categories", e)
-        }
+        val categories = categoriesRepository.getCategories() ?: emptyList()
+        _categoriesList.value = categories
     }
 
     private fun getCountries() = viewModelScope.launch {
-        try {
-            val countries = countriesRepository.getCountries() ?: emptyList()
-            _countriesList.value = countries
-            Log.d("RecetarioViewModel", "Countries: ${countries.size}")
-        } catch (e: Exception) {
-            Log.e("RecetarioViewModel", "Error getting countries", e)
-        }
+        val countries = countriesRepository.getCountries() ?: emptyList()
+        _countriesList.value = countries
     }
 
     private fun getIngredients() = viewModelScope.launch {
-        try {
-            val ingredients = ingredientsRepository.getIngredients() ?: emptyList()
-            _ingredientsList.value = ingredients
-            Log.d("RecetarioViewModel", "Ingredients: ${ingredients.size}")
-        } catch (e: Exception) {
-            Log.e("RecetarioViewModel", "Error getting ingredients", e)
-        }
+        val ingredients = ingredientsRepository.getIngredients() ?: emptyList()
+        _ingredientsList.value = ingredients
     }
 
     fun getMealDetailById(id: String) = viewModelScope.launch {
-        try {
-            val mealDetail = mealDetailRepository.getMealById(id) ?: emptyList()
-            _mealDetail.value = mealDetail
-            Log.d("RecetarioViewModel", "MealDetail: ${mealDetail.size}")
-        } catch (e: Exception) {
-            Log.e("RecetarioViewModel", "Error getting meal detail", e)
-        }
+        val mealDetail = mealDetailRepository.getMealById(id) ?: emptyList()
+        _mealDetail.value = mealDetail
     }
 
     fun getMealsByFirstLetter(firstLetter: String) = viewModelScope.launch {
-        try {
-            val meals = mealsRepository.getMealsByFirstLetter(firstLetter) ?: emptyList()
-            _mealsList.value = meals
-            Log.d("RecetarioViewModel", "Meals by first letter '$firstLetter': ${meals.size}")
-        } catch (e: Exception) {
-            Log.e("RecetarioViewModel", "Error getting meals by first letter", e)
-        }
+        val meals = mealsRepository.getMealsByFirstLetter(firstLetter) ?: emptyList()
+        _mealsList.value = meals
     }
 
     fun getMealByName(name: String) = viewModelScope.launch {
-        try {
-            val meals = mealsRepository.getMealByName(name) ?: emptyList()
-            _mealsList.value = meals
-            Log.d("RecetarioViewModel", "Meals by name '$name': ${meals.size}")
-        } catch (e: Exception) {
-            Log.e("RecetarioViewModel", "Error getting meals by name", e)
-        }
+        val meals = mealsRepository.getMealByName(name) ?: emptyList()
+        _mealsList.value = meals
     }
 }
