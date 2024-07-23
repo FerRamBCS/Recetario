@@ -3,13 +3,23 @@ package com.example.recetario
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -18,15 +28,28 @@ import com.example.recetario.data.Meal
 
 @Composable
 fun MenuScreen(recetarioViewModel: RecetarioViewModel = viewModel()) {
-    // Lista de IDs a obtener
-    val mealIds = listOf("53085", "52870", "52819", "52765", "52774", "52998", "52823", "52869", "53082")
+    var searchQuery by remember { mutableStateOf("") }
 
-    // Para fines de prueba, obtenemos datos de múltiples IDs
-    recetarioViewModel.getMealsByIds(mealIds)
+    LaunchedEffect(searchQuery) {
+        if (searchQuery.isNotEmpty()) {
+            recetarioViewModel.getMealByName(searchQuery)
+        } else {
+            // Si no hay texto en la búsqueda, muestra una lista por defecto aqui podemos estarle rotando IDS
+            val mealIds = listOf("53085", "52870", "52819", "52765", "52774", "52998", "52823", "52869", "53082")
+            recetarioViewModel.getMealsByIds(mealIds)
+        }
+    }
 
     val mealList by recetarioViewModel.mealsList.collectAsState()
 
     Column(modifier = Modifier.padding(15.dp)) {
+        OutlinedTextField(
+            value = searchQuery,
+            onValueChange = { searchQuery = it },
+            label = { Text("Buscar recetas...") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(15.dp))
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(0.dp),
@@ -42,11 +65,15 @@ fun MenuScreen(recetarioViewModel: RecetarioViewModel = viewModel()) {
 
 @Composable
 fun MealItem(meal: Meal) {
-    Column {
+    Column(modifier = Modifier.padding(4.dp)) {
         AsyncImage(
             model = meal.strMealThumb,
             contentDescription = meal.strMeal,
-            modifier = Modifier.padding(4.dp)
+            modifier = Modifier
+                .height(150.dp)
+                .fillMaxWidth()
         )
+        Text(text = meal.strMeal, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(top = 8.dp))
+        // descripción corta y nombre de la imagen
     }
 }

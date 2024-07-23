@@ -21,7 +21,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RecetarioViewModel(application: Application) : AndroidViewModel(application) {
+open class RecetarioViewModel(application: Application) : AndroidViewModel(application) {
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -56,7 +56,7 @@ class RecetarioViewModel(application: Application) : AndroidViewModel(applicatio
     val mealDetail: StateFlow<List<MealDetail>> = _mealDetail
 
     private val _mealsList = MutableStateFlow<List<Meal>>(emptyList())
-    val mealsList: StateFlow<List<Meal>> = _mealsList
+    open val mealsList: StateFlow<List<Meal>> = _mealsList
 
     init {
         getCategories()
