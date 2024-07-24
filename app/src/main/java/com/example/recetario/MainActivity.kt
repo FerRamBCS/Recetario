@@ -6,6 +6,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.recetario.ui.screens.MealDetailScreen
+
 //import androidx.lifecycle.lifecycleScope
 //import kotlinx.coroutines.flow.collect
 //import kotlinx.coroutines.launch
@@ -16,13 +21,27 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MenuScreen(recetarioViewModel = viewModel)
-        }
-        //PARTE DE LA ZONA DE PRUEBAS EN LOGCAT
-        //observeViewModel()
-    }
 
-/*
+            val navController = rememberNavController()
+            NavHost(navController = navController, startDestination = "menu") {
+                composable("menu") { MenuScreen(navController) }
+                composable("mealDetail/{mealId}") { backStackEntry ->
+                    val mealId = backStackEntry.arguments?.getString("mealId")
+                    mealId?.let { MealDetailScreen(it) }
+
+
+                   // MenuScreen(recetarioViewModel = viewModel)
+                }
+            }
+        }
+    }
+}
+
+            //PARTE DE LA ZONA DE PRUEBAS EN LOGCAT
+                //observeViewModel()
+
+
+            /*
     ZONA DE PRUEBAS PARA LOGCAT *NO TOCAR*
     private fun observeViewModel() {
         // Observar y mostrar categorías en el Logcat
@@ -90,4 +109,5 @@ class MainActivity : ComponentActivity() {
     }
 
  */
-}
+
+

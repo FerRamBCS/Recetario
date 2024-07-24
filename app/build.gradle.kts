@@ -60,6 +60,8 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation ("io.coil-kt:coil-compose:2.0.0")
     implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation ("androidx.compose.material3:material3:1.0.1")
+    implementation ("androidx.compose.material3:material3-window-size-class:1.0.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

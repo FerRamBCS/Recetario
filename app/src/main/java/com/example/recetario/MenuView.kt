@@ -1,5 +1,6 @@
 package com.example.recetario
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,18 +24,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.recetario.data.Meal
 
 @Composable
-fun MenuScreen(recetarioViewModel: RecetarioViewModel = viewModel()) {
+fun MenuScreen(navController: NavHostController,recetarioViewModel: RecetarioViewModel = viewModel()) {
     var searchQuery by remember { mutableStateOf("") }
 
     LaunchedEffect(searchQuery) {
         if (searchQuery.isNotEmpty()) {
             recetarioViewModel.getMealByName(searchQuery)
         } else {
-            // Si no hay texto en la búsqueda, muestra una lista por defecto aqui podemos estarle rotando IDS
             val mealIds = listOf("53085", "52870", "52819", "52765", "52774", "52998", "52823", "52869", "53082")
             recetarioViewModel.getMealsByIds(mealIds)
         }
@@ -57,15 +58,19 @@ fun MenuScreen(recetarioViewModel: RecetarioViewModel = viewModel()) {
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(mealList) { meal ->
-                MealItem(meal = meal)
+                MealItem(meal = meal){
+                    navController.navigate("mealDetail/${meal.idMeal}")
+                }
             }
         }
     }
 }
 
 @Composable
-fun MealItem(meal: Meal) {
-    Column(modifier = Modifier.padding(4.dp)) {
+fun MealItem(meal: Meal, onClick: () -> Unit) {
+    Column(modifier = Modifier
+        .padding(4.dp)
+        .clickable { onClick() }) {
         AsyncImage(
             model = meal.strMealThumb,
             contentDescription = meal.strMeal,
@@ -74,6 +79,5 @@ fun MealItem(meal: Meal) {
                 .fillMaxWidth()
         )
         Text(text = meal.strMeal, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(top = 8.dp))
-        // descripción corta y nombre de la imagen
     }
 }
