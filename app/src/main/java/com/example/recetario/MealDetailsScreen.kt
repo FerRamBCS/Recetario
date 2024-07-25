@@ -1,4 +1,4 @@
-package com.example.recetario.ui.screens
+package com.example.recetario
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -12,16 +12,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.example.recetario.RecetarioViewModel
 
 @Composable
-fun MealDetailScreen(mealId: String, recetarioViewModel: RecetarioViewModel = viewModel()) {
+fun MealDetailScreen(mealId: String, navController: NavHostController,
+    recetarioViewModel: RecetarioViewModel = viewModel()) {
+
+
     val mealDetail by recetarioViewModel.mealDetail.collectAsState()
-
     recetarioViewModel.getMealDetailById(mealId)
-
     val scrollState = rememberScrollState()
+
 
     Column(
         modifier = Modifier
