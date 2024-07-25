@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     mealId?.let { MealDetailScreen(it) }
 
 
-                   // MenuScreen(recetarioViewModel = viewModel)
+                   // MenuScreen(recetarioViewModel = viewModel) 
                 }
             }
         }
