@@ -34,7 +34,7 @@ fun NavGraph(navController: NavHostController) {
                 MealDetailScreen(mealId = it, navController = navController)
             }
         }
-        composable(Screen.Countries.route) { CountriesScreen() }
+        composable(Screen.Countries.route) { CountriesScreen(navController) }
         composable(Screen.Categories.route) { CategoriesScreen() }
     }
 }
@@ -76,7 +76,7 @@ fun HomeScreen() {
 @Composable
 fun CountriesScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "BANDERAS PAISES OMG LOL")
+
     }
 }
 
