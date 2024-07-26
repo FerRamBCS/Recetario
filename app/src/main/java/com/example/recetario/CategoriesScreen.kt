@@ -15,39 +15,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 
 @Composable
-fun CountriesScreen(navController: NavHostController, recetarioViewModel: RecetarioViewModel = viewModel()) {
+fun CategoriesScreen(navController: NavController, recetarioViewModel: RecetarioViewModel = viewModel()) {
 
-    val countriesList by recetarioViewModel.countriesList.collectAsState()
-
-
-
-    val meals by recetarioViewModel.mealsList.collectAsState()
-    val groupedMeals = countriesList.groupBy { it.strArea }
+    val categoriesList by recetarioViewModel.categoriesList.collectAsState()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(16.dp),
+        contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 100.dp), // Ajuste del padding inferior
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        groupedMeals.forEach { (country) ->
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                Text(
-                    text = country,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
-            }
-            items(meals) { meal ->
-                MealItemCountries(meal = meal) {
-                    navController.navigate("mealDetail/${meal.idMeal}")
-                }
+        items(categoriesList) { category ->
+            MealItemCategories(category = category) {
+                navController.navigate("categories")
             }
         }
     }
 }
-
-

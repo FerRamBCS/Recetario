@@ -35,7 +35,7 @@ fun NavGraph(navController: NavHostController) {
             }
         }
         composable(Screen.Countries.route) { CountriesScreen(navController) }
-        composable(Screen.Categories.route) { CategoriesScreen() }
+        composable(Screen.Categories.route) { CategoriesScreen(navController) }
     }
 }
 

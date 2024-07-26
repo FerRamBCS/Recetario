@@ -11,7 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.recetario.data.Country
+import com.example.recetario.data.Category
+//import com.example.recetario.data.Country
 import com.example.recetario.data.Meal
 
 @Composable
@@ -50,5 +51,26 @@ fun MealItemCountries(meal: Meal, onClick: () -> Unit) {
             modifier = Modifier.padding(top = 8.dp)
         )
 
+    }
+}
+@Composable
+fun MealItemCategories(category: Category, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .padding(4.dp)
+            .clickable { onClick() }
+    ) {
+        AsyncImage(
+            model = category.strCategoryThumb,
+            contentDescription = category.strCategory,
+            modifier = Modifier
+                .height(150.dp)
+                .fillMaxWidth()
+        )
+        Text(
+            text = category.strCategory,
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(top = 8.dp)
+        )
     }
 }
