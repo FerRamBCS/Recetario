@@ -54,11 +54,11 @@ fun MealItemCountries(meal: Meal, onClick: () -> Unit) {
     }
 }
 @Composable
-fun MealItemCategories(category: Category, onClick: () -> Unit) {
+    fun MealItemCategories(category: Category, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(4.dp)
-            .clickable { onClick() }
+            //.clickable { onClick() }
     ) {
         AsyncImage(
             model = category.strCategoryThumb,
